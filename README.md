@@ -35,7 +35,28 @@ The strategy works best with:
   - Historical volatility vs implied volatility
   - Downside risk metrics
 
-## Installation
+## 🚀 Quick Start
+
+### Option 1: REST API (Recommended for Cloud)
+
+Deploy the REST API to any cloud platform:
+
+```bash
+# Local with Docker
+docker-compose up -d
+
+# Access API at http://localhost:8000
+# API docs at http://localhost:8000/docs
+```
+
+**Deploy to cloud in minutes:**
+- ☁️ [Render.com](https://render.com) (Free tier available)
+- 🚂 [Railway](https://railway.app) ($5 free credits)
+- 🌐 [Google Cloud Run](https://cloud.google.com/run) (2M requests free)
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions.
+
+### Option 2: Python Package
 
 1. Clone the repository:
 ```bash
@@ -89,6 +110,33 @@ calls = analysis.get_call_opportunities(
 )
 ```
 
+### REST API Usage
+
+The API provides REST endpoints for all functionality:
+
+```bash
+# Health check
+curl http://localhost:8000/health
+
+# Get popular tickers
+curl http://localhost:8000/api/v1/popular-tickers
+
+# Analyze a specific ticker
+curl http://localhost:8000/api/v1/analyze/AAPL?target_dte=30
+
+# Screen stocks
+curl -X POST http://localhost:8000/api/v1/screen \
+  -H "Content-Type: application/json" \
+  -d '{"min_market_cap": 10000000000}'
+
+# Find best candidates
+curl http://localhost:8000/api/v1/candidates?min_annual_return=20
+```
+
+**Interactive API Documentation:**
+- Swagger UI: `http://localhost:8000/docs`
+- ReDoc: `http://localhost:8000/redoc`
+
 ## Configuration
 
 Edit `config/settings.yaml` to customize:
@@ -103,6 +151,7 @@ Edit `config/settings.yaml` to customize:
 wheel-app/
 ├── src/
 │   ├── __init__.py
+│   ├── api.py                # FastAPI REST API
 │   ├── analyzer.py           # Main analysis engine
 │   ├── screener.py           # Stock screening logic
 │   ├── options_chain.py      # Options data fetching
@@ -110,12 +159,21 @@ wheel-app/
 │   └── utils.py              # Helper functions
 ├── config/
 │   └── settings.yaml         # Configuration file
+├── deployment/
+│   ├── deploy.sh             # Deployment script
+│   ├── aws/                  # AWS ECS configs
+│   ├── gcp/                  # Google Cloud Run configs
+│   ├── render/               # Render.com configs
+│   └── railway/              # Railway configs
 ├── tests/
 │   └── test_analyzer.py      # Unit tests
 ├── examples/
 │   └── basic_screening.py    # Example usage
+├── Dockerfile                # Container definition
+├── docker-compose.yml        # Docker Compose config
 ├── requirements.txt          # Python dependencies
-└── README.md                 # This file
+├── README.md                 # This file
+└── DEPLOYMENT.md             # Deployment guide
 ```
 
 ## Requirements

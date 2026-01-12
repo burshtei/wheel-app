@@ -15,6 +15,11 @@ plotly>=5.14.0
 # Configuration
 pyyaml>=6.0
 
+# Web API
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.5.0
+
 # API clients (optional - uncomment if using)
 # alpha-vantage>=2.3.1
 # ib-insync>=0.9.86

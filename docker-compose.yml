@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  wheel-analyzer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wheel-analyzer-api
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+    volumes:
+      # Mount config for runtime changes (optional)
+      - ./config:/app/config:ro
+      # Mount logs directory
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - wheel-network
+
+networks:
+  wheel-network:
+    driver: bridge

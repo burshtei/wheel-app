@@ -1,0 +1,19 @@
+# Render.com Blueprint for Wheel Strategy Analyzer
+# This file enables one-click deployment to Render.com
+
+services:
+  - type: web
+    name: wheel-analyzer-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free  # Use free tier
+    region: oregon
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PORT
+        value: "8000"

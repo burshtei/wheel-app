@@ -1,0 +1,87 @@
+# Wheel Strategy Analyzer Configuration
+
+# Data Source Settings
+data_source:
+  provider: "yfinance"  # Options: yfinance, alpha_vantage, iex_cloud
+  cache_enabled: true
+  cache_duration_minutes: 60
+
+# Stock Screening Criteria
+screening:
+  min_market_cap: 10000000000  # $10 billion
+  min_price: 10.0
+  max_price: 500.0
+  min_avg_volume: 1000000  # 1M shares daily
+  min_options_volume: 500  # contracts per day
+  min_open_interest: 1000  # contracts
+
+  # Implied Volatility
+  min_iv_rank: 25  # IV rank percentile
+  min_iv_percentile: 30
+
+  # Sectors to include (empty list = all sectors)
+  included_sectors: []
+
+  # Sectors to exclude
+  excluded_sectors:
+    - "Financials"  # Optional: exclude banks/financial stocks
+
+  # Industries to exclude
+  excluded_industries:
+    - "Banks"
+    - "Insurance"
+
+# Wheel Strategy Parameters
+strategy:
+  # Put Selling Parameters
+  put_selling:
+    target_delta_min: 0.20
+    target_delta_max: 0.35
+    min_premium_pct: 1.0  # Minimum 1% premium
+    max_dte: 45  # Maximum days to expiration
+    preferred_dte: 30  # Preferred days to expiration
+
+  # Covered Call Parameters
+  covered_calls:
+    target_delta_min: 0.20
+    target_delta_max: 0.35
+    min_premium_pct: 0.5  # Minimum 0.5% premium
+    max_dte: 45
+    preferred_dte: 30
+
+  # Risk Management
+  risk:
+    max_position_size_pct: 10  # Max 10% of portfolio per position
+    stop_loss_pct: 20  # Stop loss at 20% below entry
+    max_downside_capture: 0.8  # Max 80% downside participation
+
+# Return Calculations
+returns:
+  risk_free_rate: 0.045  # 4.5% annual risk-free rate
+  target_annual_return: 0.20  # Target 20% annual return
+  compounding_frequency: 12  # Monthly compounding
+
+# Technical Analysis
+technical:
+  support_resistance_lookback: 90  # days
+  volatility_lookback: 30  # days
+  trend_lookback: 200  # days for moving averages
+
+# API Keys (optional - use environment variables in production)
+api_keys:
+  alpha_vantage: ""
+  iex_cloud: ""
+  tradier: ""
+
+# Output Settings
+output:
+  display_currency: "USD"
+  decimal_places: 2
+  date_format: "%Y-%m-%d"
+  export_format: "csv"  # Options: csv, json, excel
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file_enabled: true
+  log_directory: "logs"

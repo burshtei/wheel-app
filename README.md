@@ -2,6 +2,20 @@
 
 A Python application for analyzing stocks suitable for the options wheel strategy - a popular income-generating options trading technique.
 
+## 🚀 Quick Deploy to Cloud (FREE!)
+
+Deploy this app to the cloud in 2 minutes - **completely FREE**!
+
+**Easiest Option - Render.com:**
+1. Fork this repo or push to your GitHub
+2. Go to [render.com](https://render.com) (sign up free, no credit card)
+3. Click "New +" → "Blueprint" → Select this repo
+4. Done! Your API is live with automatic HTTPS
+
+**Other free options:** Fly.io, Railway.app
+
+📖 **[Full FREE Deployment Guide →](FREE-DEPLOYMENT.md)**
+
 ## What is the Wheel Strategy?
 
 The wheel strategy is a systematic options trading approach that combines cash-secured puts and covered calls to generate consistent income:
